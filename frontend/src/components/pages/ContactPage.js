@@ -1,5 +1,5 @@
 import React from "react";
-import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import { MapPin, Clock } from "lucide-react";
 import { useRestaurantInfo } from "../../hooks/useApi";
 
 const ContactPage = () => {

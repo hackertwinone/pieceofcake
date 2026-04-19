@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ShoppingCart, CreditCard, User, MapPin } from "lucide-react";
 import { useCart } from "../../context/CartContext";
-import CartItem from "../ui/CartItem";
 import PayPalButton from "../ui/PayPalButton";
 import api from "../../services/api";
 import { ROUTES } from "../../utils/constants";
