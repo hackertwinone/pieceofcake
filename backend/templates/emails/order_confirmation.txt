@@ -1,0 +1,28 @@
+Mariscos el 6 Seafood Restaurant - Order Confirmation
+
+Thank you, {{ order.customer_name }}!
+
+We've received your order and are excited to prepare your delicious seafood meal.
+
+ORDER DETAILS:
+Order #{{ order.id }}
+Order Date: {{ order.created_at|date:"F d, Y at g:i A" }}
+Payment Method: {{ order.get_payment_method_display }}
+Delivery Address: {{ order.delivery_address }}
+{% if order.special_instructions %}Special Instructions: {{ order.special_instructions }}{% endif %}
+
+ORDER ITEMS:
+{% for item in items %}{{ item.quantity }}x {{ item.menu_item.name }} - ${{ item.price|floatformat:2 }}
+{% endfor %}
+Total: ${{ order.total_amount|floatformat:2 }}
+
+Estimated Delivery Time: 30-45 minutes
+
+{% if order.payment_method == 'cash' %}Payment: Cash on delivery - Please have exact change ready.{% else %}Payment: Paid via PayPal/Credit Card{% endif %}
+
+Questions about your order? Contact us:
+Phone: +1 (555) 123-4567
+Email: orders@mariscosEl6.com
+Address: 123 Ocean Street, Coastal City, CC 12345
+
+Thank you for choosing fresh, authentic Mexican seafood!

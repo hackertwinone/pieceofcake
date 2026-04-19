@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Confirmation</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .header {
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        color: white;
+        padding: 30px;
+        text-align: center;
+        border-radius: 10px 10px 0 0;
+      }
+      .content {
+        background: white;
+        padding: 30px;
+        border: 1px solid #e5e7eb;
+      }
+      .footer {
+        background: #f9fafb;
+        padding: 20px;
+        text-align: center;
+        border-radius: 0 0 10px 10px;
+        color: #6b7280;
+      }
+      .order-details {
+        background: #eff6ff;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+      }
+      .item {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      .total {
+        font-weight: bold;
+        font-size: 18px;
+        color: #2563eb;
+      }
+      .button {
+        display: inline-block;
+        background: #2563eb;
+        color: white;
+        padding: 12px 30px;
+        text-decoration: none;
+        border-radius: 6px;
+        margin: 20px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>🐟 Mariscos el 6 Seafood Restaurant</h1>
+        <h2>Order Confirmation</h2>
+      </div>
+
+      <div class="content">
+        <h3>Thank you, {{ order.customer_name }}!</h3>
+        <p>
+          We've received your order and are excited to prepare your delicious
+          seafood meal. Here are your order details:
+        </p>
+
+        <div class="order-details">
+          <h4>Order #{{ order.id }}</h4>
+          <p>
+            <strong>Order Date:</strong> {{ order.created_at|date:"F d, Y at g:i
+            A" }}
+          </p>
+          <p>
+            <strong>Payment Method:</strong> {{ order.get_payment_method_display
+            }}
+          </p>
+          <p>
+            <strong>Delivery Address:</strong><br />{{ order.delivery_address }}
+          </p>
+          {% if order.special_instructions %}
+          <p>
+            <strong>Special Instructions:</strong><br />{{
+            order.special_instructions }}
+          </p>
+          {% endif %}
+        </div>
+
+        <h4>Order Items:</h4>
+        {% for item in items %}
+        <div class="item">
+          <span>{{ item.quantity }}x {{ item.menu_item.name }}</span>
+          <span>${{ item.price|floatformat:2 }}</span>
+        </div>
+        {% endfor %}
+
+        <div class="item total">
+          <span>Total:</span>
+          <span>${{ order.total_amount|floatformat:2 }}</span>
+        </div>
+
+        <p><strong>Estimated Delivery Time:</strong> 30-45 minutes</p>
+
+        {% if order.payment_method == 'cash' %}
+        <p>
+          <strong>Payment:</strong> Cash on delivery - Please have exact change
+          ready.
+        </p>
+        {% else %}
+        <p><strong>Payment:</strong> Paid via PayPal/Credit Card</p>
+        {% endif %}
+      </div>
+
+      <div class="footer">
+        <p>Questions about your order? Contact us:</p>
+        <p>📞 +1 (555) 123-4567 | 📧 orders@mariscosEl6.com</p>
+        <p>123 Ocean Street, Coastal City, CC 12345</p>
+        <br />
+        <p>
+          <small>Thank you for choosing fresh, authentic Mexican seafood!</small>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

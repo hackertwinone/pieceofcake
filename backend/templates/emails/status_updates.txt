@@ -1,0 +1,17 @@
+Mariscos el 6 Seafood Restaurant - Order Status Update
+
+Hello {{ order.customer_name }},
+
+ORDER STATUS: {{ order.get_status_display }}
+{{ status_message }}
+
+Order #{{ order.id }}
+Total: ${{ order.total_amount|floatformat:2 }}
+
+{% if order.status == 'out_for_delivery' %}Our delivery team will contact you when they arrive. Please ensure someone is available to receive the order.{% elif order.status == 'ready' %}Your order is ready for pickup at our restaurant!{% endif %}
+
+Questions? Contact us:
+Phone: +1 (555) 123-4567
+Email: orders@mariscosEl6.com
+
+Thank you for choosing Mariscos el 6!
