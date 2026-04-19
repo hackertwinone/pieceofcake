@@ -8,10 +8,16 @@ logger = logging.getLogger(__name__)
 
 class NotificationService:
     def __init__(self):
-        self.twilio_client = Client(
-            settings.TWILIO_ACCOUNT_SID,
-            settings.TWILIO_AUTH_TOKEN
-        )
+        self.twilio_client = None
+
+    def _get_client(self):
+        if self.twilio_client is None:
+            sid = settings.TWILIO_ACCOUNT_SID
+            token = settings.TWILIO_AUTH_TOKEN
+            if not sid or not token:
+                return None
+            self.twilio_client = Client(sid, token)
+        return self.twilio_client
     
     def send_order_confirmation_email(self, order):
         """Send order confirmation email to customer"""
@@ -119,9 +125,13 @@ class NotificationService:
     def send_confirmation_sms(self, order):
         """Send order confirmation SMS to customer"""
         try:
+            client = self._get_client()
+            if client is None:
+                return
+
             message = f"☕ The Cafecito Club: Order #{order.id} confirmed! Total: ${order.total_amount}. Estimated time: 10-15 mins. See you soon!"
-            
-            self.twilio_client.messages.create(
+
+            client.messages.create(
                 body=message,
                 from_=settings.TWILIO_PHONE_NUMBER,
                 to=self.format_phone_number(order.customer_phone)
@@ -137,6 +147,10 @@ class NotificationService:
     def send_status_update_sms(self, order):
         """Send status update SMS to customer"""
         try:
+            client = self._get_client()
+            if client is None:
+                return
+
             status_messages = {
                 'confirmed': '✅ Your order is confirmed and being prepared!',
                 'preparing': '☕ Your order is being crafted!',
@@ -145,11 +159,11 @@ class NotificationService:
                 'delivered': '✨ Order delivered! Enjoy your meal!',
                 'cancelled': '❌ Order cancelled. Contact us: (555) 123-4567'
             }
-            
+
             status_msg = status_messages.get(order.status, 'Order status updated')
             message = f"☕ The Cafecito Club Order #{order.id}: {status_msg}"
-            
-            self.twilio_client.messages.create(
+
+            client.messages.create(
                 body=message,
                 from_=settings.TWILIO_PHONE_NUMBER,
                 to=self.format_phone_number(order.customer_phone)
@@ -165,9 +179,13 @@ class NotificationService:
     def send_restaurant_notification_sms(self, order):
         """Send new order notification SMS to restaurant"""
         try:
+            client = self._get_client()
+            if client is None:
+                return
+
             message = f"📱 NEW ORDER #{order.id} from {order.customer_name}. Total: ${order.total_amount}. Payment: {order.get_payment_method_display()}. Check admin panel for details."
-            
-            self.twilio_client.messages.create(
+
+            client.messages.create(
                 body=message,
                 from_=settings.TWILIO_PHONE_NUMBER,
                 to=settings.RESTAURANT_PHONE
