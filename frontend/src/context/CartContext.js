@@ -5,9 +5,7 @@ const CartContext = createContext();
 const cartReducer = (state, action) => {
   switch (action.type) {
     case "ADD_TO_CART":
-      const existingItem = state.find(
-        (item) => item.cartKey === action.payload.cartKey
-      );
+      const existingItem = state.find((item) => item.cartKey === action.payload.cartKey);
       if (existingItem) {
         return state.map((item) =>
           item.cartKey === action.payload.cartKey
@@ -40,9 +38,9 @@ const cartReducer = (state, action) => {
 export const CartProvider = ({ children }) => {
   const [cart, dispatch] = useReducer(cartReducer, []);
 
-  const addToCart = (item, milk = "Whole", size = "16 oz") => {
-    const cartKey = `${item.id}-${milk}-${size}`;
-    dispatch({ type: "ADD_TO_CART", payload: { ...item, milk, size, cartKey } });
+  const addToCart = (item) => {
+    const cartKey = `${item.id}`;
+    dispatch({ type: "ADD_TO_CART", payload: { ...item, cartKey } });
   };
 
   const removeFromCart = (cartKey) => {

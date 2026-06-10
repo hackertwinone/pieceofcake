@@ -1,2 +1,2 @@
-web: python manage.py collectstatic --noinput && gunicorn cafecito.wsgi --bind 0.0.0.0:8080
+web: python manage.py collectstatic --noinput && gunicorn bakery.wsgi --bind 0.0.0.0:8080
 release: python3 manage.py migrate

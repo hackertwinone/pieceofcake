@@ -31,7 +31,7 @@ def root_view(request):
 urlpatterns = [
     path('', root_view, name='root'),
     path('admin/', admin.site.urls),
-    path('api/', include('restaurant.urls')),
+    path('api/', include('bakery_app.urls')),
 ]
 
 if settings.DEBUG:

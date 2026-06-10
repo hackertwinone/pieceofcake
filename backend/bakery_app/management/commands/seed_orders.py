@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 from datetime import timedelta
-from restaurant.models import MenuItem, Order, OrderItem
+from bakery_app.models import MenuItem, Order, OrderItem
 
 
 SAMPLE_ORDERS = [

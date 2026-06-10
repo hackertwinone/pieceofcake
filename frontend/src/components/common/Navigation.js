@@ -8,28 +8,33 @@ const Navigation = () => {
   const { getCartItemCount } = useCart();
 
   const navItems = [
-    { path: ROUTES.MENU, label: "Menu" },
-    { path: ROUTES.CART, label: "Cart" },
+    { path: ROUTES.MENU, label: "The Menu" },
+    { path: ROUTES.CART, label: "Selection" },
     { path: ROUTES.CONTACT, label: "Contact" },
   ];
 
   return (
     <>
       {/* Desktop Navigation */}
-      <nav className="hidden md:flex space-x-6">
+      <nav className="hidden md:flex space-x-1">
         {navItems.map((item) => (
           <Link
             key={item.path}
             to={item.path}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+            className={`px-5 py-2 text-sm tracking-widest uppercase transition-colors border ${
               location.pathname === item.path
-                ? "bg-sage text-white"
-                : "text-espresso hover:bg-sand"
+                ? "bg-ivory text-matte border-ivory"
+                : "bg-transparent text-ivory border-transparent hover:border-ivory-border"
             }`}
+            style={{ fontFamily: "'EB Garamond', serif", letterSpacing: "0.2em",
+              ...(location.pathname !== item.path && { borderColor: "rgba(232, 228, 220, 0.25)" })
+            }}
           >
             {item.label}
             {item.path === ROUTES.CART && getCartItemCount() > 0 && (
-              <span className="ml-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs">
+              <span className={`ml-2 text-xs px-1.5 py-0.5 font-bold ${
+                location.pathname === item.path ? "bg-matte text-ivory" : "bg-ivory text-matte"
+              }`}>
                 {getCartItemCount()}
               </span>
             )}
@@ -38,21 +43,25 @@ const Navigation = () => {
       </nav>
 
       {/* Mobile Navigation */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-sand-light border-t border-brown shadow-lg z-50">
+      <div
+        className="md:hidden fixed bottom-0 left-0 right-0 bg-lacquer z-50"
+        style={{ borderTop: "1px solid rgba(232, 228, 220, 0.2)" }}
+      >
         <div className="flex">
           {navItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
-              className={`flex-1 py-3 text-center text-sm ${
+              className={`flex-1 py-3 text-center text-xs tracking-widest uppercase transition-colors ${
                 location.pathname === item.path
-                  ? "bg-sage text-white"
-                  : "text-espresso"
+                  ? "bg-ivory text-matte"
+                  : "text-ivory-dim hover:text-ivory"
               }`}
+              style={{ fontFamily: "'EB Garamond', serif", letterSpacing: "0.15em" }}
             >
               {item.label}
               {item.path === ROUTES.CART && getCartItemCount() > 0 && (
-                <span className="ml-1 bg-red-500 text-white rounded-full px-2 py-1 text-xs">
+                <span className="ml-1 bg-ivory text-matte text-xs px-1.5 py-0.5 font-bold">
                   {getCartItemCount()}
                 </span>
               )}

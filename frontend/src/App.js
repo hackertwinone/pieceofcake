@@ -10,7 +10,6 @@ import OrderConfirmationPage from "./components/pages/OrderConfirmationPage";
 import ContactPage from "./components/pages/ContactPage";
 import { ROUTES } from "./utils/constants";
 
-// PayPal configuration
 const paypalOptions = {
   "client-id":
     process.env.REACT_APP_PAYPAL_CLIENT_ID || "your-paypal-client-id-here",
@@ -25,10 +24,8 @@ function App() {
     <PayPalScriptProvider options={paypalOptions}>
       <CartProvider>
         <Router>
-          <div className="min-h-screen bg-sand">
+          <div className="min-h-screen bg-matte text-ivory font-garamond">
             <Header />
-
-            {/* Add padding bottom for mobile navigation */}
             <main className="container mx-auto px-4 py-8 pb-20 md:pb-8">
               <Routes>
                 <Route path={ROUTES.HOME} element={<MenuPage />} />

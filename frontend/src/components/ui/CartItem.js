@@ -2,48 +2,80 @@ import React from "react";
 import { Plus, Minus, Trash2 } from "lucide-react";
 import { useCart } from "../../context/CartContext";
 
+const cardBorder = { border: "1px solid rgba(232, 228, 220, 0.2)" };
+const dividerStyle = { borderTop: "1px solid rgba(232, 228, 220, 0.12)" };
+
+const iconBtnClass =
+  "p-2 bg-transparent text-ivory-dim transition-colors";
+
 const CartItem = ({ item }) => {
   const { addToCart, removeFromCart, deleteFromCart } = useCart();
 
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-lg">
-      <div className="flex items-center justify-between">
-        <div>
-          <h3 className="text-lg font-bold text-forest">{item.name}</h3>
-          <p className="text-sm text-brown">{item.size} · {item.milk} milk</p>
-          <p className="text-espresso">${item.price} each</p>
+    <div className="bg-lacquer p-6" style={cardBorder}>
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex-1">
+          <h3
+            className="text-base font-bold text-ivory leading-tight tracking-wide"
+            style={{ fontFamily: "'Cinzel Decorative', serif" }}
+          >
+            {item.name}
+          </h3>
+          <p
+            className="text-gold mt-1 text-sm"
+            style={{ fontFamily: "'EB Garamond', serif" }}
+          >
+            ${parseFloat(item.price).toFixed(2)} each
+          </p>
         </div>
-        <div className="flex items-center space-x-3">
+
+        <div className="flex items-center gap-1">
           <button
             onClick={() => removeFromCart(item.cartKey)}
-            className="bg-red-100 text-red-600 p-2 rounded-lg hover:bg-red-200"
+            className={iconBtnClass}
+            style={{ borderColor: "rgba(232, 228, 220, 0.2)", border: "1px solid rgba(232,228,220,0.2)" }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = "#F0EBE0"; e.currentTarget.style.borderColor = "rgba(232,228,220,0.5)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = "#C8BFA8"; e.currentTarget.style.borderColor = "rgba(232,228,220,0.2)"; }}
+            aria-label="Decrease quantity"
           >
-            <Minus className="h-4 w-4" />
+            <Minus className="h-3.5 w-3.5" />
           </button>
-          <span className="text-lg font-bold text-forest w-8 text-center">
+          <span
+            className="text-base font-bold text-ivory w-8 text-center"
+            style={{ fontFamily: "'EB Garamond', serif" }}
+          >
             {item.quantity}
           </span>
           <button
-            onClick={() => addToCart(item, item.milk, item.size)}
-            className="bg-sand text-sage p-2 rounded-lg hover:bg-sand-light"
+            onClick={() => addToCart(item)}
+            className={iconBtnClass}
+            style={{ border: "1px solid rgba(232,228,220,0.2)" }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = "#F0EBE0"; e.currentTarget.style.borderColor = "rgba(232,228,220,0.5)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = "#C8BFA8"; e.currentTarget.style.borderColor = "rgba(232,228,220,0.2)"; }}
+            aria-label="Increase quantity"
           >
-            <Plus className="h-4 w-4" />
+            <Plus className="h-3.5 w-3.5" />
           </button>
           <button
             onClick={() => deleteFromCart(item.cartKey)}
-            className="bg-red-100 text-red-600 p-2 rounded-lg hover:bg-red-200 ml-2"
+            className={`${iconBtnClass} ml-2`}
+            style={{ border: "1px solid rgba(232,228,220,0.2)" }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = "#F0EBE0"; e.currentTarget.style.borderColor = "rgba(232,228,220,0.5)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = "#C8BFA8"; e.currentTarget.style.borderColor = "rgba(232,228,220,0.2)"; }}
+            aria-label="Remove item"
           >
-            <Trash2 className="h-4 w-4" />
+            <Trash2 className="h-3.5 w-3.5" />
           </button>
         </div>
       </div>
-      <div className="mt-4 pt-4 border-t border-sand">
-        <div className="flex justify-between items-center">
-          <span className="text-espresso">Subtotal:</span>
-          <span className="font-bold text-forest">
-            ${(parseFloat(item.price) * item.quantity).toFixed(2)}
-          </span>
-        </div>
+
+      <div className="mt-4 pt-4 flex justify-between items-center" style={dividerStyle}>
+        <span className="text-ivory-dim italic text-sm" style={{ fontFamily: "'EB Garamond', serif" }}>
+          Item total
+        </span>
+        <span className="font-bold text-gold" style={{ fontFamily: "'EB Garamond', serif" }}>
+          ${(parseFloat(item.price) * item.quantity).toFixed(2)}
+        </span>
       </div>
     </div>
   );

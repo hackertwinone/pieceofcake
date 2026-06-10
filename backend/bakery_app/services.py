@@ -22,7 +22,7 @@ class NotificationService:
     def send_order_confirmation_email(self, order):
         """Send order confirmation email to customer"""
         try:
-            subject = f"Order Confirmation #{order.id} - The Cafecito Club"
+            subject = f"Order Confirmation #{order.id} - Mario's Piece of Cake Bakery"
             
             # Render email template
             html_message = render_to_string('emails/order_confirmation.html', {
@@ -129,7 +129,7 @@ class NotificationService:
             if client is None:
                 return
 
-            message = f"☕ The Cafecito Club: Order #{order.id} confirmed! Total: ${order.total_amount}. Estimated time: 10-15 mins. See you soon!"
+            message = f"☕ Mario's Piece of Cake Bakery: Order #{order.id} confirmed! Total: ${order.total_amount}. Estimated time: 10-15 mins. See you soon!"
 
             client.messages.create(
                 body=message,
@@ -161,7 +161,7 @@ class NotificationService:
             }
 
             status_msg = status_messages.get(order.status, 'Order status updated')
-            message = f"☕ The Cafecito Club Order #{order.id}: {status_msg}"
+            message = f"☕ Mario's Piece of Cake Bakery Order #{order.id}: {status_msg}"
 
             client.messages.create(
                 body=message,

@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
                 ('is_available', models.BooleanField(default=True)),
                 ('ingredients', models.TextField(blank=True)),
                 ('allergens', models.CharField(blank=True, max_length=200)),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='restaurant.category')),
+                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='bakery_app.category')),
             ],
         ),
         migrations.CreateModel(
@@ -58,8 +58,8 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('quantity', models.PositiveIntegerField()),
                 ('price', models.DecimalField(decimal_places=2, max_digits=6)),
-                ('menu_item', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='restaurant.menuitem')),
-                ('order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='items', to='restaurant.order')),
+                ('menu_item', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='bakery_app.menuitem')),
+                ('order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='items', to='bakery_app.order')),
             ],
         ),
     ]

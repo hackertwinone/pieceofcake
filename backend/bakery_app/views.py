@@ -205,19 +205,19 @@ def send_test_notification(request):
 @api_view(['GET'])
 def restaurant_info(request):
     info = {
-        'name': 'The Cafecito Club',
-        'description': 'Your neighborhood coffee haven — crafted with love, served with warmth',
-        'address': '123 Green Street, Eco City, EC 12345',
-        'phone': '+1 (555) 123-4567',
-        'email': 'hello@thecafecito.club',
+        'name': "Mario's Piece of Cake",
+        'description': 'Handcrafted confections for the discerning palate — not for the faint of heart.',
+        'address': '13 Mourning Lane, The Manor District',
+        'phone': '+1 (555) 013-0013',
+        'email': 'orders@mariospieceofcake.com',
         'hours': {
-            'monday': '11:00 AM - 10:00 PM',
-            'tuesday': '11:00 AM - 10:00 PM',
-            'wednesday': '11:00 AM - 10:00 PM',
-            'thursday': '11:00 AM - 10:00 PM',
-            'friday': '11:00 AM - 11:00 PM',
-            'saturday': '10:00 AM - 11:00 PM',
-            'sunday': '10:00 AM - 9:00 PM'
+            'monday': 'Closed',
+            'tuesday': '12:00 PM - 9:00 PM',
+            'wednesday': '12:00 PM - 9:00 PM',
+            'thursday': '12:00 PM - 9:00 PM',
+            'friday': '12:00 PM - 10:00 PM',
+            'saturday': '10:00 AM - 10:00 PM',
+            'sunday': '10:00 AM - 8:00 PM',
         }
     }
     return Response(info)

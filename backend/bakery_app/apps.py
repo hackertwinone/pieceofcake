@@ -2,7 +2,7 @@ from django.apps import AppConfig
 
 class RestaurantConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'restaurant'
-    
+    name = 'bakery_app'
+
     def ready(self):
-        import restaurant.signals  # Import signals when app is ready
+        import bakery_app.signals  # Import signals when app is ready
