@@ -27,13 +27,12 @@ class MenuItemSerializer(serializers.ModelSerializer):
     def get_image(self, obj):
         if obj.image:
             url = obj.image.url
-            # Cloudinary already returns a full URL
-            if url.startswith('http'):
-                return url
-            # Fallback for local media
-            request = self.context.get('request')
-            if request:
-                return request.build_absolute_uri(url)
+            # Fix missing /image/upload/ in Cloudinary URLs
+            if 'res.cloudinary.com' in url and '/image/upload/' not in url:
+                cloud_name = url.split('res.cloudinary.com/')[1].split('/')[0]
+                path = '/'.join(url.split('res.cloudinary.com/')[1].split('/')[1:])
+                return f'https://res.cloudinary.com/{cloud_name}/image/upload/{path}'
+            return url
         return None
 
     class Meta:
