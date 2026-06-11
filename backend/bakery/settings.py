@@ -122,6 +122,8 @@ else:
     MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+USE_X_FORWARDED_HOST = True
 
 # Email Configuration
 EMAIL_HOST = env('EMAIL_HOST', default='localhost')
