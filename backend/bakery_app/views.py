@@ -18,7 +18,7 @@ class CategoryListView(generics.ListAPIView):
     serializer_class = CategorySerializer
 
 class MenuItemListView(generics.ListAPIView):
-    serializer_class = MenuItemSerializer
+    serializer_class = 
     
     def get_queryset(self):
         queryset = MenuItem.objects.filter(is_available=True)

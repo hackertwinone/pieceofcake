@@ -12,15 +12,20 @@ class MenuItemSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
 
     def get_image(self, obj):
-        request = self.context.get('request')
-        if obj.image and request:
-            return request.build_absolute_uri(obj.image.url)
+        if obj.image:
+            url = obj.image.url
+            # Cloudinary already returns a full URL
+            if url.startswith('http'):
+                return url
+            # Fallback for local media
+            request = self.context.get('request')
+            if request:
+                return request.build_absolute_uri(url)
         return None
 
     class Meta:
         model = MenuItem
         fields = '__all__'
-
 
 class OrderItemSerializer(serializers.ModelSerializer):
     menu_item_name = serializers.CharField(source='menu_item.name', read_only=True)
