@@ -1,5 +1,5 @@
 export const API_BASE =
-  import.meta.env.VITE_API_URL ||
+  process.env.REACT_APP_API_URL ||
   "https://pieceofcake-production.up.railway.app/api";
 export const ROUTES = {
   HOME: "/",
