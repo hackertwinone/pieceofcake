@@ -8,6 +8,19 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+# class MenuItemSerializer(serializers.ModelSerializer):
+#     image = serializers.SerializerMethodField()
+
+#     def get_image(self, obj):
+#         request = self.context.get('request')
+#         if obj.image and request:
+#             return request.build_absolute_uri(obj.image.url)
+#         return None
+
+#     class Meta:
+#         model = MenuItem
+#         fields = '__all__'
+
 class MenuItemSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
 
