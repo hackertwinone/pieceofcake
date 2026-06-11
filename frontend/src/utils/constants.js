@@ -1,4 +1,6 @@
-export const API_BASE = `${import.meta.env.VITE_API_URL}/api`;
+export const API_BASE =
+  import.meta.env.VITE_API_URL ||
+  "https://pieceofcake-production.up.railway.app/api";
 export const ROUTES = {
   HOME: "/",
   MENU: "/menu",
